@@ -1,0 +1,228 @@
+package com.example.android.justjava;
+
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.TextView;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.view.Menu;
+import android.view.MenuItem;
+import java.text.NumberFormat;
+
+
+/**
+ * This app displays an order form to order coffee.
+ */
+public class MainActivity extends AppCompatActivity {
+    int quantity = 0;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+    }
+
+    /**
+     * This method is called when the order button is clicked.
+     */
+    public void submitOrder(View view) {
+        display(quantity);
+        displayPrice(quantity * 5);
+    }
+
+    /**
+     * onclick plus.
+     */
+    public void increment(View view) {
+        quantity = quantity + 1;
+        display(quantity);
+        displayPrice(quantity * 5);
+    }
+
+    /**
+     * onclick min.
+     */
+    public void decrement(View view) {
+        if ( quantity > 0) {
+            quantity = quantity - 1;
+            display(quantity);
+            displayPrice(quantity * 5);
+        }
+    }
+
+    /**
+     * This method displays the given quantity value on the screen.
+     */
+    private void display(int number) {
+        TextView quantityTextView = (TextView) findViewById(R.id.quantity_text_view);
+        quantityTextView.setText("" + number);
+    }
+
+    /**
+     * This method displays the given price on the screen.
+     */
+    private void displayPrice(int number) {
+        TextView priceTextView = (TextView) findViewById(R.id.price_text_view);
+        priceTextView.setText(NumberFormat.getCurrencyInstance().format(number));
+    }
+
+    /** Menu on top of the screen**/
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+}
+
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:showIn="@layout/activity_main"
+    tools:context="com.example.android.justjava.MainActivity"
+    android:orientation="vertical"
+    android:background="#fff">
+    <ImageView
+        android:id="@+id/backGround_image_view"
+        android:src="@drawable/back1"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:textSize="22sp"
+        android:text="espresso"
+        android:textColor="#000"
+        android:textAllCaps="true"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:textSize="16sp"
+        android:text="Quantity"
+        android:textColor="#000"
+        android:textAllCaps="true"
+        />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+    <Button
+        android:id="@+id/plus_button"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:text="+"
+        android:layout_marginLeft="16dp"
+        android:onClick="increment"
+        />
+    <TextView
+        android:id="@+id/quantity_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:textSize="16sp"
+        android:text="0"
+        android:textColor="#000"
+        />
+    <Button
+        android:id="@+id/min_button"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:text="-"
+        android:layout_marginLeft="16dp"
+        android:onClick="decrement"
+        />
+</LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:textSize="16sp"
+        android:text="Price"
+        android:textColor="#000"
+        android:textAllCaps="true"
+        />
+    <TextView
+        android:id="@+id/price_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:textSize="16sp"
+        android:text="€0"
+        android:textColor="#000"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Espresso:"
+        android:textStyle="bold"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Espresso is een scheut donkere geconcentreerde koffie
+(30 cc / ml) gemaakt van zeer fijn gemalen koffiebonen. Echte espresso herken je aan een laagje lichtbruine schuimige crema. De cremalaag ontstaat door de hoge druk waarmee het water door de koffie wordt geperst.De cremalaag dient zo stevig te zijn dat het een lepeltje suiker een paar tellen kan dragen"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/order_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Order"
+            android:textColor="#fff"
+            android:background="#8D6E63"
+            android:layout_alignParentBottom="true"
+            android:onClick="submitOrder"
+            />
+    </RelativeLayout>
+
+</LinearLayout>
+
+
